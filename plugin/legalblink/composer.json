@@ -1,0 +1,15 @@
+{
+  "name": "legalblink/legalblink",
+  "autoload": {
+    "classmap": [
+      "classes/"
+    ]
+  },
+  "authors": [
+    {
+      "name": "LegalBlink",
+      "homepage": "https://legalblink.it/"
+    }
+  ],
+  "require": {}
+}
