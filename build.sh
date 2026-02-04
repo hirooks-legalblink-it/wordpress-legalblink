@@ -14,9 +14,9 @@ NC='\033[0m' # No Color
 # Directories
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ADMIN_UI_DIR="${PROJECT_ROOT}/admin-ui"
-PLUGIN_DIR="${PROJECT_ROOT}/plugin/legalblink"
+PLUGIN_DIR="${PROJECT_ROOT}/plugin/legalblink-policy"
 DIST_DIR="${PROJECT_ROOT}/dist"
-PLUGIN_NAME="legalblink"
+PLUGIN_NAME="legalblink-policy"
 TEMP_BUILD_DIR="${DIST_DIR}/temp-build"
 
 echo -e "${GREEN}========================================${NC}"

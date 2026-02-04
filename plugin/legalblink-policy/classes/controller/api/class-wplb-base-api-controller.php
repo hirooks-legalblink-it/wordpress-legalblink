@@ -153,7 +153,7 @@ if (!class_exists('WPLB_Base_API_Controller')) {
                 return new WP_Error(
                     'rate_limit_exceeded',
                     /* translators: Error message when API rate limit is exceeded */
-                    __('Limite di chiamate API superato. Riprova tra un minuto.', 'legalblink'),
+                    __('Limite di chiamate API superato. Riprova tra un minuto.', 'legalblink-policy'),
                     array('status' => 429)
                 );
             }

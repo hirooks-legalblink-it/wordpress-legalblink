@@ -19,7 +19,7 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineConfig({
   base: '',
   build: {
-    outDir: resolve(__dirname, '../plugin/legalblink/assets/admin-ui'),
+    outDir: resolve(__dirname, '../plugin/legalblink-policy/assets/admin-ui'),
     emptyOutDir: true,
     assetsDir: '',
     cssCodeSplit: false,

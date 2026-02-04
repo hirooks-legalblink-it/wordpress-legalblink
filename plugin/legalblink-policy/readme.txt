@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
-**LegalBlink** is a plugin that allows you to integrate the LegalBlink services into your WordPress site.
+**LegalBlink Policy** is a plugin that allows you to integrate the LegalBlink services into your WordPress site.
 
 This tool lets you create privacy and cookie policies, cookie banners, and terms and conditions
 for your showcase or e-commerce site.
@@ -41,7 +41,7 @@ French, and Spanish, and comply with GDPR requirements and European Directive
 = From WordPress =
 
 1. Go to **Plugins → Add New**
-2. Search for “LegalBlink”
+2. Search for “LegalBlink Policy”
 3. Click **Install** and then **Activate**
 
 = Manual =
@@ -50,12 +50,12 @@ French, and Spanish, and comply with GDPR requirements and European Directive
 2. Go to **Plugins → Add New** and **Upload Plugin**
 3. Upload the `.zip` file and activate it, or upload the files via FTP to the ```/wp-content/plugins/``` folder
 
-After activation, you will find the menu item: “LegalBlink”.
+After activation, you will find the menu item: “LegalBlink Policy”.
 
 == Configuration ==
 
 1. Retrieve your token from [https://app.legalblink.it/login](https://app.legalblink.it/login)
-2. Go to “LegalBlink” on WordPress
+2. Go to “LegalBlink Policy” on WordPress
 3. Paste the token and click “Login”
 
 == Frequently Asked Questions ==

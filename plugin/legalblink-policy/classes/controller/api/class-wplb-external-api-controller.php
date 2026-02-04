@@ -47,9 +47,9 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 if (empty($jwt_token)) {
                     return $this->create_error_response(
                         /* translators: Error message when authentication credentials are missing */
-                        __('Credenziali mancanti.', 'legalblink'),
+                        __('Credenziali mancanti.', 'legalblink-policy'),
                         /* translators: English error message for missing credentials */
-                        __('Missing credentials', 'legalblink')
+                        __('Missing credentials', 'legalblink-policy')
                     );
                 }
 
@@ -65,9 +65,9 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 if (is_wp_error($response)) {
                     return $this->create_error_response(
                         /* translators: Error message prefix for languages request errors, followed by the actual error */
-                        __('Errore nella richiesta lingue: ', 'legalblink') . $response->get_error_message(),
+                        __('Errore nella richiesta lingue: ', 'legalblink-policy') . $response->get_error_message(),
                         /* translators: English error message for languages request failure */
-                        __('Languages request failed', 'legalblink')
+                        __('Languages request failed', 'legalblink-policy')
                     );
                 }
 
@@ -75,9 +75,9 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 if ($code !== 200) {
                     return $this->create_error_response(
                         /* translators: %d is the HTTP response code for languages API error */
-                        sprintf(__('Errore API lingue: %d', 'legalblink'), $code),
+                        sprintf(__('Errore API lingue: %d', 'legalblink-policy'), $code),
                         /* translators: English error message for languages API error */
-                        __('Languages API error', 'legalblink')
+                        __('Languages API error', 'legalblink-policy')
                     );
                 }
 
@@ -87,9 +87,9 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     return $this->create_error_response(
                         /* translators: Error message when languages response parsing fails */
-                        __('Errore nel parsing della risposta lingue', 'legalblink'),
+                        __('Errore nel parsing della risposta lingue', 'legalblink-policy'),
                         /* translators: English error message for languages parse error */
-                        __('Languages parse error', 'legalblink')
+                        __('Languages parse error', 'legalblink-policy')
                     );
                 }
 
@@ -105,9 +105,9 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 LBFA_Logger::error('Languages retrieval failed: ' . $e->getMessage(), LBFA_Logger::CATEGORY_API, 'get_languages');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected languages retrieval errors */
-                    __('Errore imprevisto nel recupero lingue', 'legalblink'),
+                    __('Errore imprevisto nel recupero lingue', 'legalblink-policy'),
                     /* translators: English error message for languages exception */
-                    __('Languages exception', 'legalblink')
+                    __('Languages exception', 'legalblink-policy')
                 );
             }
         }

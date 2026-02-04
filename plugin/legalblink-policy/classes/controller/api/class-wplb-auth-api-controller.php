@@ -56,9 +56,9 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                 if (empty($external_id) || empty($jwt_token)) {
                     return $this->create_error_response(
                         /* translators: Error message when authentication credentials are missing */
-                        __('Credenziali mancanti.', 'legalblink'),
+                        __('Credenziali mancanti.', 'legalblink-policy'),
                         /* translators: English error message for missing credentials */
-                        __('Missing credentials', 'legalblink')
+                        __('Missing credentials', 'legalblink-policy')
                     );
                 }
 
@@ -76,9 +76,9 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                     WPLB_Logger::error('Authentication request error', WPLB_Logger::CATEGORY_AUTH, 'verify_user_authentication');
                     return $this->create_error_response(
                         /* translators: %s is the error message from the authentication request */
-                        __('Errore nella richiesta di autenticazione: ', 'legalblink') . $response->get_error_message(),
+                        __('Errore nella richiesta di autenticazione: ', 'legalblink-policy') . $response->get_error_message(),
                         /* translators: English error message for authentication request failure */
-                        __('Authentication request failed', 'legalblink')
+                        __('Authentication request failed', 'legalblink-policy')
                     );
                 }
 
@@ -91,9 +91,9 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                     WPLB_Logger::warning('User authentication verification failed', WPLB_Logger::CATEGORY_AUTH, 'verify_user_authentication');
                     return $this->create_error_response(
                         /* translators: %d is the HTTP response code */
-                        sprintf(__('Autenticazione fallita: %d', 'legalblink'), $code),
+                        sprintf(__('Autenticazione fallita: %d', 'legalblink-policy'), $code),
                         /* translators: English error message for authentication failure */
-                        __('Authentication failed', 'legalblink')
+                        __('Authentication failed', 'legalblink-policy')
                     );
                 }
 
@@ -106,9 +106,9 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                 WPLB_Logger::error('Authentication verification exception', WPLB_Logger::CATEGORY_AUTH, 'verify_user_authentication');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected authentication verification error */
-                    __('Errore imprevisto nella verifica autenticazione', 'legalblink'),
+                    __('Errore imprevisto nella verifica autenticazione', 'legalblink-policy'),
                     /* translators: English error message for authentication exception */
-                    __('Authentication exception', 'legalblink')
+                    __('Authentication exception', 'legalblink-policy')
                 );
             }
         }
@@ -135,7 +135,7 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                     'timeout' => 30
                 );
 
-                WPLB_Logger::info('Authentication request params: ' . wp_json_encode($params), WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
+                // WPLB_Logger::info('Authentication request params: ' . wp_json_encode($params), WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
 
                 $response = wp_remote_post($url, $params);
 
@@ -144,9 +144,9 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                     WPLB_Logger::error('Authentication request error', WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
                     return $this->create_error_response(
                         /* translators: Error message prefix for authentication request errors, followed by the actual error */
-                        __('Errore nella richiesta di autenticazione: ', 'legalblink') . $response->get_error_message(),
+                        __('Errore nella richiesta di autenticazione: ', 'legalblink-policy') . $response->get_error_message(),
                         /* translators: English error message for authentication request failure */
-                        __('Authentication request failed', 'legalblink')
+                        __('Authentication request failed', 'legalblink-policy')
                     );
                 }
 
@@ -154,7 +154,7 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
                 $body = wp_remote_retrieve_body($response);
                 $auth_data = json_decode($body, true);
 
-                WPLB_Logger::debug('Authentication response: ' . wp_json_encode($auth_data), WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
+                // WPLB_Logger::debug('Authentication response: ' . wp_json_encode($auth_data), WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
                 WPLB_Logger::debug('Response code: ' . $code, WPLB_Logger::CATEGORY_AUTH, 'authenticate_user');
 
                 if (isset($auth_data['token'], $auth_data['user']) && $code === 201) {
@@ -168,21 +168,21 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
 
                     return $this->create_api_response(true, $auth_data, null,
                         /* translators: Success message when user authentication is completed */
-                        __('Autenticazione completata con successo.', 'legalblink'));
+                        __('Autenticazione completata con successo.', 'legalblink-policy'));
                 }
 
                 return $this->create_error_response(
                     /* translators: Fallback error message when authentication fails */
-                    $auth_data['message'] ?? __('Autenticazione fallita.', 'legalblink'),
+                    $auth_data['message'] ?? __('Autenticazione fallita.', 'legalblink-policy'),
                     /* translators: English error message for authentication failure */
-                    __('Authentication failed', 'legalblink')
+                    __('Authentication failed', 'legalblink-policy')
                 );
             } catch (Exception $e) {
                 return $this->create_error_response(
                     /* translators: Error message for unexpected authentication errors */
-                    __('Errore imprevisto durante l\'autenticazione', 'legalblink'),
+                    __('Errore imprevisto durante l\'autenticazione', 'legalblink-policy'),
                     /* translators: English error message for authentication exception */
-                    __('Authentication exception', 'legalblink')
+                    __('Authentication exception', 'legalblink-policy')
                 );
             }
         }
@@ -209,7 +209,7 @@ if (!class_exists('WPLB_Auth_API_Controller')) {
             WPLB_Logger::info('User logged out', WPLB_Logger::CATEGORY_AUTH, 'logout_user');
             return $this->create_api_response(true, array(), null,
                 /* translators: Success message when user logout is completed */
-                __('Logout completato con successo.', 'legalblink'));
+                __('Logout completato con successo.', 'legalblink-policy'));
         }
     }
 }

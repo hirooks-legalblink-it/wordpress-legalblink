@@ -1,4 +1,4 @@
-# LegalBlink - WordPress Plugin
+# LegalBlink Policy - WordPress Plugin
 
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://www.php.net/)
@@ -8,7 +8,7 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 
 ## 📖 Overview
 
-**LegalBlink** allows you to:
+**LegalBlink Policy** allows you to:
 
 - ✅ Create and manage GDPR-compliant legal documents
 - 🍪 Display cookie consent banners with consent management
@@ -21,7 +21,7 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 
 ## 📦 Download
 
-- **WordPress.org**: [Download from WordPress Plugin Directory](https://wordpress.org/plugins/legalblink/)
+- **WordPress.org**: [Download from WordPress Plugin Directory](https://wordpress.org/plugins/legalblink-policy/)
 - **Releases**: [GitHub Releases](https://github.com/hirooks-legalblink-it/wordpress-legalblink/releases)
 
 ## 🔧 Installation
@@ -29,7 +29,7 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 ### From WordPress Admin
 
 1. Go to **Plugins → Add New**
-2. Search for "LegalBlink"
+2. Search for "LegalBlink Policy"
 3. Click **Install Now** and then **Activate**
 
 ### Manual Installation
@@ -42,7 +42,7 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 ## ⚙️ Configuration
 
 1. Get your LegalBlink token from [https://app.legalblink.it/login](https://app.legalblink.it/login)
-2. In WordPress, go to **LegalBlink**
+2. In WordPress, go to **LegalBlink Policy**
 3. Enter your token and click **Login**
 4. Configure your legal documents and cookie banner settings
 
@@ -66,14 +66,14 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 Embed legal documents anywhere on your site:
 
 ```
-[lbfa_privacy_policy]
-[lbfa_cookie_policy]
-[lbfa_cgv_policy]
+[wplb_privacy_policy]
+[wplb_cookie_policy]
+[wplb_cgv_policy]
 ```
 
 With options:
 ```
-[lbfa_privacy_policy language="en" html="true"]
+[wplb_privacy_policy language="en" html="true"]
 ```
 
 ### Cache Management
@@ -91,7 +91,7 @@ This plugin's compiled JavaScript and CSS files are built from human-readable so
 The complete source code is available in this repository:
 
 - **Admin UI Source**: [`admin-ui/`](./admin-ui/) - Vue 3 + TypeScript
-- **PHP Backend**: [`plugin/legalblink/`](./plugin/legalblink/) - WordPress plugin code
+- **PHP Backend**: [`plugin/legalblink-policy/`](./plugin/legalblink-policy/) - WordPress plugin code
 - **Build Script**: [`build.sh`](./build.sh) - Automated build process
 
 ### 🏗️ Build Instructions
@@ -131,7 +131,7 @@ npm install
 npm run build
 
 # Install PHP dependencies
-cd ../plugin/legalblink
+cd ../plugin/legalblink-policy
 composer install --no-dev --optimize-autoloader
 ```
 
@@ -161,7 +161,7 @@ npm run dev
 
 All third-party libraries and their licenses are documented in:
 - [`admin-ui/package.json`](./admin-ui/package.json) - npm dependencies
-- [`plugin/legalblink/composer.json`](./plugin/legalblink/composer.json) - PHP dependencies
+- [`plugin/legalblink-policy/composer.json`](./plugin/legalblink-policy/composer.json) - PHP dependencies
 
 All frontend libraries are MIT licensed and compatible with the plugin's GPLv3 license.
 
@@ -220,7 +220,7 @@ wordpress-legalblink/
 │   ├── package.json                   # npm dependencies
 │   └── vite.config.mts                # Vite configuration
 ├── plugin/
-│   └── legalblink/                    # WordPress Plugin (DISTRIBUTION)
+│   └── legalblink-policy/             # WordPress Plugin (DISTRIBUTION)
 │       ├── readme.txt                 # WordPress.org readme
 │       ├── assets/
 │       │   └── admin-ui/              # COMPILED JS/CSS

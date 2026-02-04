@@ -23,14 +23,11 @@ return array(
 
         /**
          * Base URL for LegalBlink API calls
-         * Production: https://app.legalblink.it/api/integrations/wordpress
-         * Staging: https://staging.app.legalblink.it/api/integrations/wordpress
          */
         'base_url' => 'https://app.legalblink.it/api/integrations/wordpress',
 
         /**
          * LegalBlink API Bearer Token
-         * IMPORTANT: Keep this secret! Never commit this file with real credentials.
          */
         'bearer_token' => 'your-api-token-here',
 

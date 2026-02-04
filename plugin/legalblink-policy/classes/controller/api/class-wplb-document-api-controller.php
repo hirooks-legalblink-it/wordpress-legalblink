@@ -93,9 +93,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 if (empty($jwt_token)) {
                     return $this->create_error_response(
                         /* translators: Error message when authentication credentials are missing */
-                        __('Credenziali mancanti.', 'legalblink'),
+                        __('Credenziali mancanti.', 'legalblink-policy'),
                         /* translators: English error message for missing credentials */
-                        __('Missing credentials', 'legalblink')
+                        __('Missing credentials', 'legalblink-policy')
                     );
                 }
 
@@ -112,9 +112,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                     WPLB_Logger::error('Documents request error: ' . $response->get_error_message(), WPLB_Logger::CATEGORY_API, 'get_documents');
                     return $this->create_error_response(
                         /* translators: Error message prefix for documents request errors, followed by the actual error */
-                        __('Errore nella richiesta documenti: ', 'legalblink') . $response->get_error_message(),
+                        __('Errore nella richiesta documenti: ', 'legalblink-policy') . $response->get_error_message(),
                         /* translators: English error message for documents request failure */
-                        __('Documents request failed', 'legalblink')
+                        __('Documents request failed', 'legalblink-policy')
                     );
                 }
 
@@ -126,9 +126,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                     WPLB_Logger::warning('Documents request failed with code: ' . $code, WPLB_Logger::CATEGORY_API, 'get_documents');
                     return $this->create_error_response(
                         /* translators: %d is the HTTP response code for documents request failure */
-                        sprintf(__('Richiesta documenti fallita: %d', 'legalblink'), $code),
+                        sprintf(__('Richiesta documenti fallita: %d', 'legalblink-policy'), $code),
                         /* translators: English error message for documents request failure */
-                        __('Documents request failed', 'legalblink')
+                        __('Documents request failed', 'legalblink-policy')
                     );
                 }
 
@@ -159,9 +159,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 WPLB_Logger::error('Documents retrieval exception: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'get_documents');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected documents retrieval errors */
-                    __('Errore imprevisto nel recupero documenti', 'legalblink'),
+                    __('Errore imprevisto nel recupero documenti', 'legalblink-policy'),
                     /* translators: English error message for documents exception */
-                    __('Documents exception', 'legalblink')
+                    __('Documents exception', 'legalblink-policy')
                 );
             }
         }
@@ -206,9 +206,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 WPLB_Logger::error('WordPress pages retrieval exception: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'get_wordpress_pages');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected WordPress pages retrieval errors */
-                    __('Errore nel recupero delle pagine WordPress', 'legalblink'),
+                    __('Errore nel recupero delle pagine WordPress', 'legalblink-policy'),
                     /* translators: English error message for WordPress pages exception */
-                    __('WordPress pages exception', 'legalblink')
+                    __('WordPress pages exception', 'legalblink-policy')
                 );
             }
         }
@@ -300,9 +300,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 if (!get_post((int)$page_id)) {
                     return $this->create_error_response(
                         /* translators: Error message when a WordPress page is not found */
-                        __('Pagina non trovata.', 'legalblink'),
+                        __('Pagina non trovata.', 'legalblink-policy'),
                         /* translators: English error message for page not found */
-                        __('Page not found', 'legalblink')
+                        __('Page not found', 'legalblink-policy')
                     );
                 }
 
@@ -311,9 +311,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 if (!$shortcode) {
                     return $this->create_error_response(
                         /* translators: Error message when an invalid policy type is provided */
-                        __('Tipo di policy non valido.', 'legalblink'),
+                        __('Tipo di policy non valido.', 'legalblink-policy'),
                         /* translators: English error message for invalid policy type */
-                        __('Invalid policy type', 'legalblink')
+                        __('Invalid policy type', 'legalblink-policy')
                     );
                 }
 
@@ -338,9 +338,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                     WPLB_Logger::error('Page update error: ' . $update_result->get_error_message(), WPLB_Logger::CATEGORY_API, 'update_page_content');
                     return $this->create_error_response(
                         /* translators: Error message prefix for page update errors, followed by the actual error */
-                        __('Errore nell\'aggiornamento della pagina: ', 'legalblink') . $update_result->get_error_message(),
+                        __('Errore nell\'aggiornamento della pagina: ', 'legalblink-policy') . $update_result->get_error_message(),
                         /* translators: English error message for page update failure */
-                        __('Page update failed', 'legalblink')
+                        __('Page update failed', 'legalblink-policy')
                     );
                 }
 
@@ -353,9 +353,9 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 WPLB_Logger::error('Page update exception: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'update_page_content');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected page update errors */
-                    __('Errore imprevisto nell\'aggiornamento pagina', 'legalblink'),
+                    __('Errore imprevisto nell\'aggiornamento pagina', 'legalblink-policy'),
                     /* translators: English error message for page update exception */
-                    __('Page update exception', 'legalblink')
+                    __('Page update exception', 'legalblink-policy')
                 );
             }
         }

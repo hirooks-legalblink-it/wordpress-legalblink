@@ -97,9 +97,9 @@ if (!class_exists('WPLB_Main_API_Controller')) {
             } else {
                 return $this->create_error_response(
                     /* translators: Error message when an unsupported HTTP method is used */
-                    __('Metodo non supportato.', 'legalblink'),
+                    __('Metodo non supportato.', 'legalblink-policy'),
                     /* translators: English error message for unsupported method */
-                    __('Method not allowed', 'legalblink')
+                    __('Method not allowed', 'legalblink-policy')
                 );
             }
         }
@@ -124,9 +124,9 @@ if (!class_exists('WPLB_Main_API_Controller')) {
             } catch (Exception $e) {
                 return $this->create_error_response(
                     /* translators: Error message for unexpected banner data retrieval errors */
-                    __('Errore imprevisto nel recupero dati banner', 'legalblink'),
+                    __('Errore imprevisto nel recupero dati banner', 'legalblink-policy'),
                     /* translators: English error message for banner data exception */
-                    __('Banner data exception', 'legalblink')
+                    __('Banner data exception', 'legalblink-policy')
                 );
             }
         }
@@ -149,7 +149,7 @@ if (!class_exists('WPLB_Main_API_Controller')) {
                 'enabled' => $enabled,
             ), null,
                 /* translators: Success message when banner settings are updated */
-                __('Impostazioni banner aggiornate con successo.', 'legalblink'));
+                __('Impostazioni banner aggiornate con successo.', 'legalblink-policy'));
         }
 
         public function fetch_banner_snippet()
@@ -159,9 +159,9 @@ if (!class_exists('WPLB_Main_API_Controller')) {
             if (empty($jwt_token)) {
                 return $this->create_error_response(
                     /* translators: Error message when authentication credentials are missing */
-                    __('Credenziali mancanti.', 'legalblink'),
+                    __('Credenziali mancanti.', 'legalblink-policy'),
                     /* translators: English error message for missing credentials */
-                    __('Missing credentials', 'legalblink')
+                    __('Missing credentials', 'legalblink-policy')
                 );
             }
 
@@ -191,9 +191,9 @@ if (!class_exists('WPLB_Main_API_Controller')) {
                 WPLB_Logger::warning('Error', WPLB_Logger::CATEGORY_GENERAL, 'fetch_banner_snippet');
                 return $this->create_error_response(
                     /* translators: %d is the HTTP response code for banner snippet fetch error */
-                    sprintf(__('Errore nel recupero snippet banner: %d', 'legalblink'), $code),
+                    sprintf(__('Errore nel recupero snippet banner: %d', 'legalblink-policy'), $code),
                     /* translators: English error message for banner snippet fetch failure */
-                    __('Banner snippet fetch failed', 'legalblink')
+                    __('Banner snippet fetch failed', 'legalblink-policy')
                 );
             }
 
@@ -238,9 +238,9 @@ if (!class_exists('WPLB_Main_API_Controller')) {
             } catch (Exception $e) {
                 return $this->create_error_response(
                     /* translators: Error message for unexpected WordPress pages retrieval errors */
-                    __('Errore nel recupero delle pagine WordPress', 'legalblink'),
+                    __('Errore nel recupero delle pagine WordPress', 'legalblink-policy'),
                     /* translators: English error message for pages retrieval exception */
-                    __('Pages retrieval exception', 'legalblink')
+                    __('Pages retrieval exception', 'legalblink-policy')
                 );
             }
         }

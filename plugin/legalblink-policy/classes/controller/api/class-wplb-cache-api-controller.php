@@ -47,13 +47,13 @@ if (!class_exists('WPLB_Cache_API_Controller')) {
                 WPLB_Logger::info('Cache cleared successfully', WPLB_Logger::CATEGORY_CONFIG, 'clear_cache');
                 return $this->create_api_response(true, array(), null,
                     /* translators: Success message when cache is cleared */
-                    __('Cache svuotata con successo.', 'legalblink'));
+                    __('Cache svuotata con successo.', 'legalblink-policy'));
             } catch (Exception $e) {
                 return $this->create_error_response(
                     /* translators: Error message for unexpected cache clearing errors */
-                    __('Errore imprevisto nella pulizia cache', 'legalblink'),
+                    __('Errore imprevisto nella pulizia cache', 'legalblink-policy'),
                     /* translators: English error message for cache clear exception */
-                    __('Cache clear exception', 'legalblink')
+                    __('Cache clear exception', 'legalblink-policy')
                 );
             }
         }
@@ -101,7 +101,7 @@ if (!class_exists('WPLB_Cache_API_Controller')) {
                 'cache_duration' => (int)$cache_duration
             ), null,
                 /* translators: Success message when cache settings are saved */
-                __('Impostazioni cache salvate con successo.', 'legalblink'));
+                __('Impostazioni cache salvate con successo.', 'legalblink-policy'));
         }
 
         /**

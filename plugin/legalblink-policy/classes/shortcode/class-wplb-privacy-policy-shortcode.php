@@ -23,11 +23,11 @@ if ( ! class_exists( 'WPLB_Privacy_Policy_Shortcode' ) ) {
                 $content,
                 $this->policy_type,
                 /* translators: Title for the Privacy Policy document */
-                __('Privacy Policy', 'legalblink'),
+                __('Privacy Policy', 'legalblink-policy'),
                 /* translators: Message displayed when Privacy Policy URL is not configured in plugin settings */
-                __('Per visualizzare la Privacy Policy, configura l\'URL nelle impostazioni del plugin.', 'legalblink'),
+                __('Per visualizzare la Privacy Policy, configura l\'URL nelle impostazioni del plugin.', 'legalblink-policy'),
                 /* translators: Fallback message for browsers that don't support iframes */
-                __('Il tuo browser non supporta gli iframe. Puoi visualizzare la privacy policy qui:', 'legalblink')
+                __('Il tuo browser non supporta gli iframe. Puoi visualizzare la privacy policy qui:', 'legalblink-policy')
             );
         }
     }

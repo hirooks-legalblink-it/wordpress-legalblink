@@ -126,7 +126,7 @@ if ( ! class_exists( 'WPLB_Base_Shortcode' ) ) {
                 esc_html($fallback_text),
                 esc_url($url),
                 /* translators: Link text to view the document */
-                esc_html(__('Visualizza documento', 'legalblink'))
+                esc_html(__('Visualizza documento', 'legalblink-policy'))
             );
         }
 
@@ -216,7 +216,7 @@ if ( ! class_exists( 'WPLB_Base_Shortcode' ) ) {
             if (empty($document_url)) {
                 return $this->generate_error_notice(
                     /* translators: %s is the document type (e.g., Privacy Policy, Cookie Policy) */
-                    sprintf(__('%s non configurato', 'legalblink'), $title),
+                    sprintf(__('%s non configurato', 'legalblink-policy'), $title),
                     $not_configured_message,
                     $policy_type
                 );
