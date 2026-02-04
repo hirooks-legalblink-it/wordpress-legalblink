@@ -144,7 +144,7 @@ echo -e "\n${YELLOW}[5/5] Creating plugin zip...${NC}"
 cd "${TEMP_BUILD_DIR}"
 
 # Get version from plugin file
-VERSION=$(grep -E "Version:" "${TEMP_BUILD_DIR}/${PLUGIN_NAME}/legalblink.php" | awk '{print $3}')
+VERSION=$(grep -E "Version:" "${TEMP_BUILD_DIR}/${PLUGIN_NAME}/${PLUGIN_NAME}.php" | awk '{print $3}')
 ZIP_NAME="${PLUGIN_NAME}_${VERSION}.zip"
 
 # Create the zip
