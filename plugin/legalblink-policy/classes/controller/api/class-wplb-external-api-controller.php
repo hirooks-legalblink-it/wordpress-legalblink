@@ -4,12 +4,12 @@ if (!defined('ABSPATH')) {
     die;
 }
 
-if (!class_exists('LBFA_External_API_Controller')) {
+if (!class_exists('WPLB_External_API_Controller')) {
     /**
      * External API Controller
      * Handles communication with external services (languages, branding, upsell)
      */
-    class LBFA_External_API_Controller extends LBFA_Base_API_Controller
+    class WPLB_External_API_Controller extends WPLB_Base_API_Controller
     {
         /**
          * Register external API routes
@@ -38,11 +38,11 @@ if (!class_exists('LBFA_External_API_Controller')) {
         {
             try {
                 // Check cache first
-                $cached_languages = LBFA_Transient_Helper::get('languages');
+                $cached_languages = WPLB_Transient_Helper::get('languages');
                 if ($cached_languages !== false) {
                     return $this->create_api_response(true, $cached_languages);
                 }
-                $jwt_token = LBFA_Option_Helper::getOption('jwt_token');
+                $jwt_token = WPLB_Option_Helper::getOption('jwt_token');
 
                 if (empty($jwt_token)) {
                     return $this->create_error_response(
@@ -94,15 +94,15 @@ if (!class_exists('LBFA_External_API_Controller')) {
                 }
 
                 // Cache for 1 hour
-                LBFA_Transient_Helper::set('languages', $languages_data, 3600);
+                WPLB_Transient_Helper::set('languages', $languages_data, 3600);
 
                 // Log the operation
-                LBFA_Logger::info('Languages fetched and cached successfully', LBFA_Logger::CATEGORY_API, 'get_languages');
+                WPLB_Logger::info('Languages fetched and cached successfully', WPLB_Logger::CATEGORY_API, 'get_languages');
 
                 return $this->create_api_response(true, $languages_data);
 
             } catch (Exception $e) {
-                LBFA_Logger::error('Languages retrieval failed: ' . $e->getMessage(), LBFA_Logger::CATEGORY_API, 'get_languages');
+                WPLB_Logger::error('Languages retrieval failed: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'get_languages');
                 return $this->create_error_response(
                     /* translators: Error message for unexpected languages retrieval errors */
                     __('Errore imprevisto nel recupero lingue', 'legalblink-policy'),
