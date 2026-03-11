@@ -3,7 +3,7 @@
  * Plugin Name: LegalBlink Policy
  * Plugin URI: https://wordpress.org/plugins/legalblink-policy/
  * Description: Integrate LegalBlink services in your WordPress site. Generate GDPR-compliant legal documents including Privacy Policy, Cookie Policy, and Terms & Conditions with professional legal support.
- * Version: 2.0.3
+ * Version: 2.0.4
  * Author: LegalBlink
  * Author URI: https://legalblink.it/
  * Text Domain: legalblink-policy
