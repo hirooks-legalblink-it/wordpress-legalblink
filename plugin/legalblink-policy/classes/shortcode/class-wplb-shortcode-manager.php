@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPLB_Shortcode_Manager' ) ) {
                 'WPLB_Terms_Of_Service_Shortcode',
             );
 
-            foreach ($shortcode_classes as $class_name => $file_name) {
+            foreach ($shortcode_classes as $class_name) {
                 if (class_exists($class_name)) {
                     new $class_name();
                 }
