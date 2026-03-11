@@ -4,7 +4,7 @@ Tags: gdpr, privacy, cookie, policy, compliance
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,13 +94,28 @@ Yes, it can be configured for every site.
 
 == Changelog ==
 
-= 1.0.0 =
-* Initial plugin release.
+= 1.0.1 =
+- Minor bug fixes
+= 1.0.2 =
+- Tested with Wordpress 5.7
+- Minor bug fixes
+= 2.0.0 =
+- Major update with new features
+- Updated user interface for better usability
+- Enhanced compatibility with latest WordPress versions
+= 2.0.2 =
+- Fixed a bug that prevented shortcodes from loading correctly
+= 2.0.3 =
+- Removed inline `<style>` blocks from embedded HTML documents to prevent layout conflicts with WordPress themes
+- Cache is now automatically invalidated after plugin updates
 
 == Upgrade Notice ==
 
 = 1.0.0 =
 Initial release of the LegalBlink plugin.
+= 2.0.0 =
+Major update with new features.
+Please review your settings after upgrading.
 
 == External Services ==
 
