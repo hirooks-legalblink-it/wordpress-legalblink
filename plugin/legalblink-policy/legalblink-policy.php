@@ -37,6 +37,9 @@ if (!defined('ABSPATH')) {
 if (!defined('WPLB_PLUGIN_DIR')) {
     define('WPLB_PLUGIN_DIR', plugin_dir_path(__FILE__));
 }
+if (!defined('WPLB_PLUGIN_VERSION')) {
+    define('WPLB_PLUGIN_VERSION', '2.0.4');
+}
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -45,6 +48,14 @@ function wplb_init()
     try {
         // Initialize logger
         WPLB_Logger::info('Plugin initialization started', WPLB_Logger::CATEGORY_GENERAL, 'wplb_init');
+
+        // Clear cache if plugin version changed (covers admin, FTP, WP-CLI, auto-updates)
+        $stored_version = get_option('wplb_plugin_version', '');
+        if ($stored_version !== WPLB_PLUGIN_VERSION) {
+            WPLB_Transient_Helper::clearAll();
+            update_option('wplb_plugin_version', WPLB_PLUGIN_VERSION, false);
+            WPLB_Logger::info('Plugin updated to ' . WPLB_PLUGIN_VERSION . ', cache cleared', WPLB_Logger::CATEGORY_GENERAL, 'wplb_init');
+        }
 
         // Inizializza i componenti principali
         WPLB_Main_API_Controller::get_instance();
@@ -59,20 +70,6 @@ function wplb_init()
 
 // Inizializza il plugin dopo che WordPress ha caricato tutti i plugin
 add_action('plugins_loaded', 'wplb_init');
-
-/**
- * Invalidate the document HTML cache when this plugin is updated.
- */
-add_action('upgrader_process_complete', function ($upgrader, $hook_extra) {
-    if (
-        isset($hook_extra['type'], $hook_extra['plugins']) &&
-        $hook_extra['type'] === 'plugin' &&
-        is_array($hook_extra['plugins']) &&
-        in_array(plugin_basename(__FILE__), $hook_extra['plugins'], true)
-    ) {
-        WPLB_Transient_Helper::clearAll();
-    }
-}, 10, 2);
 
 function wplb_add_type_attribute( array $attr )
 {
