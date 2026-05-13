@@ -286,6 +286,10 @@
       const response = await cacheService.clearCache()
       if (response.success) {
         showMessage(response.message || 'Cache eliminata!', 'info')
+        // After clearing the plugin transients, re-run the bootstrap so
+        // branding / documents / pages / cache / cookie banner reflect the
+        // freshly fetched payloads instead of the stale in-store copy.
+        store.setAuthenticated(true)
       } else {
         showMessage(response.errors?.[0] || 'Errore nella pulizia della cache', 'error')
       }
