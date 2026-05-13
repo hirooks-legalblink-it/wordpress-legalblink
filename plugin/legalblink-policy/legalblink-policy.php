@@ -90,12 +90,17 @@ function wplb_enqueue_admin_assets()
         return;
     }
 
+    // Pass the absolute REST URL so the admin SPA still works on sites with
+    // "Plain" permalinks. On those installs `rest_url('wplb/v1')` returns
+    // `https://example.com/?rest_route=/wplb/v1` and `PHP_URL_PATH` drops
+    // the query string entirely, collapsing `root` to `/` — every admin
+    // call then resolves against the site origin (e.g. `/cache/settings`)
+    // and 404s. Same-origin so no CORS implication.
     $full_url = rest_url(WPLB_Base_API_Controller::get_api_namespace());
-    $relative_url = wp_parse_url( $full_url, PHP_URL_PATH );
 
     $api_config = [
         'baseUrl' => '',
-        'root' => esc_url_raw( $relative_url ),
+        'root' => esc_url_raw( $full_url ),
         'nonce' => wp_create_nonce('wp_rest'),
         'editPagesUrl' => admin_url('edit.php?post_type=page'),
     ];
