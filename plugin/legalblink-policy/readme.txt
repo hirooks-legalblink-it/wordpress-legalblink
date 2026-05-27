@@ -4,7 +4,7 @@ Tags: gdpr, privacy, cookie, policy, compliance
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,13 @@ Yes, it can be configured for every site.
 - Cache is now automatically invalidated after plugin updates
 = 2.0.4 =
 - Minor fixes
+= 2.0.5 =
+- Fixed: the plugin admin now works on sites using "Plain" permalinks (also for language switching and other parameterized actions)
+- Fixed: stray JavaScript snippets no longer appear as text when embedding a document in HTML mode
+- Improved: empty paragraphs and paragraphs containing only line breaks are removed from documents embedded in HTML mode, for a cleaner layout
+- Improved: "Clear cache" now refreshes the admin UI automatically — no manual page reload required
+- Improved: cache invalidation also wipes orphan transients, so "Clear cache" reliably drops every stale payload
+- Fixed: stray WordPress check icon no longer appears inside the plugin's toggle switches
 
 == Upgrade Notice ==
 
