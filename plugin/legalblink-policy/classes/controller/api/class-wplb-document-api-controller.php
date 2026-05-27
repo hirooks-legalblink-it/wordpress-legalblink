@@ -174,8 +174,15 @@ if (!class_exists('WPLB_Document_API_Controller')) {
             try {
                 $cached_pages = WPLB_Transient_Helper::get('wordpress_pages');
                 if ($cached_pages !== false) {
-                    WPLB_Logger::info('WordPress pages retrieved from cache', WPLB_Logger::CATEGORY_API, 'get_wordpress_pages');
-                    return $this->create_api_response(true, array('pages' => $cached_pages));
+                    $has_elementor_flag = empty($cached_pages) || array_key_exists('isElementor', $cached_pages[0]);
+
+                    if ($has_elementor_flag) {
+                        WPLB_Logger::info('WordPress pages retrieved from cache', WPLB_Logger::CATEGORY_API, 'get_wordpress_pages');
+                        return $this->create_api_response(true, array(
+                            'pages' => $cached_pages,
+                            'total' => count($cached_pages),
+                        ));
+                    }
                 }
 
                 // If not cached, fetch from database
@@ -193,14 +200,18 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                         'title' => $page->post_title,
                         'slug' => $page->post_name,
                         'url' => get_permalink($page->ID),
-                        'modified' => $page->post_modified
+                        'modified' => $page->post_modified,
+                        'isElementor' => wplb_is_elementor_page($page->ID),
                     );
                 }
 
                 WPLB_Transient_Helper::set('wordpress_pages', $pages_data, 1800);
 
                 WPLB_Logger::info('WordPress pages retrieved: ' . count($pages_data), WPLB_Logger::CATEGORY_API, 'get_wordpress_pages');
-                return $this->create_api_response(true, array('pages' => $pages_data));
+                return $this->create_api_response(true, array(
+                    'pages' => $pages_data,
+                    'total' => count($pages_data),
+                ));
 
             } catch (Exception $e) {
                 WPLB_Logger::error('WordPress pages retrieval exception: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'get_wordpress_pages');
@@ -293,7 +304,14 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 if (!$page_id) {
                     WPLB_Option_Helper::setLanguageOption("page_{$policy_type}_id", 0, $language);
                     WPLB_Option_Helper::setLanguageOption("page_{$policy_type}_use_html_snippet", false, $language);
-                    return $this->create_api_response(true, array());
+                    return $this->create_api_response(true, array(
+                        'page_id' => 0,
+                        'policy_type' => $policy_type,
+                        'language' => $language,
+                        'shortcode' => '',
+                        'use_html_snippet' => false,
+                        'message' => __('Pagina disassociata con successo.', 'legalblink-policy'),
+                    ));
                 }
 
                 // Validate page exists
@@ -347,7 +365,14 @@ if (!class_exists('WPLB_Document_API_Controller')) {
                 // Log successful update
                 WPLB_Logger::info("Page {$page_id} updated with {$policy_type} policy shortcode", WPLB_Logger::CATEGORY_API, 'update_page_content');
 
-                return $this->create_api_response(true, array());
+                return $this->create_api_response(true, array(
+                    'page_id' => (int) $page_id,
+                    'policy_type' => $policy_type,
+                    'language' => $language,
+                    'shortcode' => $shortcode,
+                    'use_html_snippet' => $use_html_snippet,
+                    'message' => __('Pagina aggiornata con successo.', 'legalblink-policy'),
+                ));
 
             } catch (Exception $e) {
                 WPLB_Logger::error('Page update exception: ' . $e->getMessage(), WPLB_Logger::CATEGORY_API, 'update_page_content');
@@ -365,16 +390,7 @@ if (!class_exists('WPLB_Document_API_Controller')) {
          */
         private function get_shortcode_for_policy($policy_type)
         {
-            switch ($policy_type) {
-                case 'privacy_policy':
-                    return '[WPLB_PRIVACY_POLICY]';
-                case 'cookie_policy':
-                    return '[WPLB_COOKIE_POLICY]';
-                case 'terms_of_service':
-                    return '[WPLB_CGV_POLICY]';
-                default:
-                    return false;
-            }
+            return wplb_get_policy_shortcode($policy_type);
         }
 
     }

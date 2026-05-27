@@ -3,7 +3,7 @@
  * Plugin Name: LegalBlink Policy
  * Plugin URI: https://wordpress.org/plugins/legalblink-policy/
  * Description: Integrate LegalBlink services in your WordPress site. Generate GDPR-compliant legal documents including Privacy Policy, Cookie Policy, and Terms & Conditions with professional legal support.
- * Version: 2.0.5
+ * Version: 2.0.6
  * Author: LegalBlink
  * Author URI: https://legalblink.it/
  * Text Domain: legalblink-policy
@@ -38,7 +38,111 @@ if (!defined('WPLB_PLUGIN_DIR')) {
     define('WPLB_PLUGIN_DIR', plugin_dir_path(__FILE__));
 }
 if (!defined('WPLB_PLUGIN_VERSION')) {
-    define('WPLB_PLUGIN_VERSION', '2.0.5');
+    define('WPLB_PLUGIN_VERSION', '2.0.6');
+}
+
+if (!defined('WPLB_SHORTCODE_COOKIE_POLICY')) {
+    define('WPLB_SHORTCODE_COOKIE_POLICY', 'WPLB_COOKIE_POLICY');
+}
+if (!defined('WPLB_SHORTCODE_PRIVACY_POLICY')) {
+    define('WPLB_SHORTCODE_PRIVACY_POLICY', 'WPLB_PRIVACY_POLICY');
+}
+if (!defined('WPLB_SHORTCODE_CGV_POLICY')) {
+    define('WPLB_SHORTCODE_CGV_POLICY', 'WPLB_CGV_POLICY');
+}
+if (!defined('WPLB_SHORTCODE_TERMS_OF_SERVICE_LEGACY')) {
+    define('WPLB_SHORTCODE_TERMS_OF_SERVICE_LEGACY', 'WPLB_TERMS_OF_SERVICE');
+}
+
+if (!function_exists('wplb_get_policy_shortcode_tag')) {
+    /**
+     * Get the canonical shortcode tag for a policy type.
+     *
+     * @param string $policy_type
+     * @return string|false
+     */
+    function wplb_get_policy_shortcode_tag($policy_type)
+    {
+        $shortcode_tags = array(
+            'cookie_policy' => WPLB_SHORTCODE_COOKIE_POLICY,
+            'privacy_policy' => WPLB_SHORTCODE_PRIVACY_POLICY,
+            'terms_of_service' => WPLB_SHORTCODE_CGV_POLICY,
+        );
+
+        return $shortcode_tags[$policy_type] ?? false;
+    }
+}
+
+if (!function_exists('wplb_get_policy_shortcode_alias_tags')) {
+    /**
+     * Get legacy shortcode aliases for a policy type.
+     *
+     * @param string $policy_type
+     * @return array
+     */
+    function wplb_get_policy_shortcode_alias_tags($policy_type)
+    {
+        $shortcode_aliases = array(
+            'terms_of_service' => array(WPLB_SHORTCODE_TERMS_OF_SERVICE_LEGACY),
+        );
+
+        return $shortcode_aliases[$policy_type] ?? array();
+    }
+}
+
+if (!function_exists('wplb_get_policy_shortcode')) {
+    /**
+     * Get the shortcode string for a policy type.
+     *
+     * @param string $policy_type
+     * @return string|false
+     */
+    function wplb_get_policy_shortcode($policy_type)
+    {
+        $shortcode_tag = wplb_get_policy_shortcode_tag($policy_type);
+
+        if (!$shortcode_tag) {
+            return false;
+        }
+
+        return '[' . $shortcode_tag . ']';
+    }
+}
+
+if (!function_exists('wplb_get_admin_shortcodes')) {
+    /**
+     * Get the canonical shortcodes exposed in the admin UI.
+     *
+     * @return array
+     */
+    function wplb_get_admin_shortcodes()
+    {
+        return array(
+            'cookie_policy' => wplb_get_policy_shortcode('cookie_policy'),
+            'privacy_policy' => wplb_get_policy_shortcode('privacy_policy'),
+            'terms_of_service' => wplb_get_policy_shortcode('terms_of_service'),
+        );
+    }
+}
+
+if (!function_exists('wplb_is_elementor_page')) {
+    /**
+     * Check whether a WordPress page is managed by Elementor.
+     *
+     * @param int $page_id
+     * @return bool
+     */
+    function wplb_is_elementor_page($page_id)
+    {
+        if (!$page_id) {
+            return false;
+        }
+
+        $edit_mode = get_post_meta($page_id, '_elementor_edit_mode', true);
+        $elementor_data = get_post_meta($page_id, '_elementor_data', true);
+
+        return !empty($edit_mode) || !empty($elementor_data);
+    }
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -103,6 +207,7 @@ function wplb_enqueue_admin_assets()
         'root' => esc_url_raw( $full_url ),
         'nonce' => wp_create_nonce('wp_rest'),
         'editPagesUrl' => admin_url('edit.php?post_type=page'),
+        'shortcodes' => wplb_get_admin_shortcodes(),
     ];
     $admin_ui_url = plugin_dir_url(__FILE__) . 'assets/admin-ui/';
     $version = '1.0.0';

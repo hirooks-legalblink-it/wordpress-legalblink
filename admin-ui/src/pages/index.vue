@@ -74,7 +74,6 @@
                 title="Impostazioni sulla cookie policy"
                 :use-html-snippet="useHtmlSnippet"
                 @page-updated="handlePageUpdated"
-                @save="saveCookiePolicySettings"
                 @update:policy-page="cookiePolicyPage = $event"
                 @update:use-html-snippet="useHtmlSnippet = $event"
               />
@@ -91,7 +90,6 @@
                 title="Impostazioni sulla informativa privacy"
                 :use-html-snippet="usePrivacyHtmlSnippet"
                 @page-updated="handlePageUpdated"
-                @save="savePrivacyPolicySettings"
                 @update:policy-page="privacyPolicyPage = $event"
                 @update:use-html-snippet="usePrivacyHtmlSnippet = $event"
               />
@@ -106,7 +104,6 @@
                 title="Impostazioni dei termini del sito"
                 :use-html-snippet="useCgvHtmlSnippet"
                 @page-updated="handlePageUpdated"
-                @save="saveCgvPolicySettings"
                 @update:policy-page="cgvPolicyPage = $event"
                 @update:use-html-snippet="useCgvHtmlSnippet = $event"
               />
@@ -153,7 +150,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue'
-  import { cacheService, type WordPressPage } from '@/services'
+  import { cacheService, type UpdatePageResponse, type WordPressPage } from '@/services'
   import { useAppStore } from '@/stores/app'
 
   const store = useAppStore()
@@ -180,6 +177,11 @@
     color: 'success',
     timeout: 3000,
   })
+  const shortcodes = window.wplb.shortcodes || {
+    cookie_policy: '[WPLB_COOKIE_POLICY]',
+    privacy_policy: '[WPLB_PRIVACY_POLICY]',
+    terms_of_service: '[WPLB_CGV_POLICY]',
+  }
 
   function showMessage (message: string, color: 'success' | 'error' | 'info' = 'success', timeout = 3000) {
     snackbar.value = {
@@ -237,33 +239,21 @@
 
   const useHtmlSnippet = ref(false)
   const cookiePolicyPage = ref<string | null>(null)
-  const shortcode = '[WPLB_COOKIE_POLICY]'
+  const shortcode = shortcodes.cookie_policy
 
   const usePrivacyHtmlSnippet = ref(false)
   const privacyPolicyPage = ref<string | null>(null)
   const setAsDefaultPrivacyPage = ref(false)
-  const privacyShortcode = '[WPLB_PRIVACY_POLICY]'
+  const privacyShortcode = shortcodes.privacy_policy
 
   const useCgvHtmlSnippet = ref(false)
   const cgvPolicyPage = ref<string | null>(null)
-  const cgvShortcode = '[WPLB_TERMS_OF_SERVICE]'
+  const cgvShortcode = shortcodes.terms_of_service
 
   const cacheDuration = computed({
     get: () => store.cacheSettings.cache_duration || 30,
     set: value => store.cacheSettings.cache_duration = value,
   })
-
-  function saveCookiePolicySettings () {
-    showMessage('Impostazioni cookie policy salvate!')
-  }
-
-  function savePrivacyPolicySettings () {
-    showMessage('Impostazioni privacy policy salvate!')
-  }
-
-  function saveCgvPolicySettings () {
-    showMessage('Impostazioni CGV salvate!')
-  }
 
   async function saveCacheSettings () {
     try {
@@ -304,13 +294,34 @@
     return [
       { title: 'Nessuna pagina selezionata', value: null },
       ...pages.map((page: WordPressPage) => ({
-        title: page.title,
+        title: page.isElementor ? `${page.title} (Elementor)` : page.title,
         value: page.id.toString(),
+        isElementor: page.isElementor === true,
       })),
     ]
   })
 
-  function handlePageUpdated (result: any) {
+  function getPageById (pageId: number | string | null | undefined) {
+    if (pageId === null || pageId === undefined || pageId === 0 || pageId === '0') {
+      return null
+    }
+
+    const normalizedId = String(pageId)
+    return store.getWordPressPages.find(page => page.id.toString() === normalizedId) ?? null
+  }
+
+  function handlePageUpdated (result: UpdatePageResponse) {
+    const selectedPage = getPageById(result.page_id)
+
+    if (selectedPage?.isElementor) {
+      showMessage(
+        'Contenuto WordPress aggiornato. La struttura Elementor non viene sincronizzata automaticamente: inserisci manualmente lo shortcode nel widget Elementor.',
+        'info',
+        6000,
+      )
+      return
+    }
+
     showMessage(result.message || 'Pagina aggiornata con successo!', 'success')
   }
 

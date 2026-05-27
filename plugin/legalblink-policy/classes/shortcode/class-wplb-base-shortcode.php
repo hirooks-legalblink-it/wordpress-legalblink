@@ -8,6 +8,7 @@ if ( ! class_exists( 'WPLB_Base_Shortcode' ) ) {
     abstract class WPLB_Base_Shortcode
     {
         protected $tag = '';
+        protected $aliases = array();
         protected $default_attrs = array(
             'lang' => null,
             'height' => '600px',
@@ -22,7 +23,11 @@ if ( ! class_exists( 'WPLB_Base_Shortcode' ) ) {
          */
         public function __construct()
         {
-            add_shortcode($this->tag, array($this, 'handle'));
+            $registered_tags = array_unique(array_filter(array_merge(array($this->tag), $this->aliases)));
+
+            foreach ($registered_tags as $registered_tag) {
+                add_shortcode($registered_tag, array($this, 'handle'));
+            }
         }
 
         /**

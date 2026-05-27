@@ -7,8 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WPLB_Privacy_Policy_Shortcode' ) ) {
     class WPLB_Privacy_Policy_Shortcode extends WPLB_Base_Shortcode
     {
-        protected $tag = 'WPLB_PRIVACY_POLICY';
         protected $policy_type = 'privacy_policy';
+
+        public function __construct()
+        {
+            $this->tag = wplb_get_policy_shortcode_tag($this->policy_type);
+            $this->aliases = wplb_get_policy_shortcode_alias_tags($this->policy_type);
+
+            parent::__construct();
+        }
 
         /**
          * Generate the shortcode output

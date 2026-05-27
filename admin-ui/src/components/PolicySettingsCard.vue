@@ -113,6 +113,14 @@
               </span>
             </template>
           </div>
+          <v-alert
+            v-if="isElementorPage"
+            class="mt-3"
+            type="warning"
+            variant="tonal"
+          >
+            Questa pagina usa Elementor. Il salvataggio automatico sovrascrive solo il contenuto standard di WordPress e non aggiorna widget o layout Elementor. Per mostrare il documento nel layout Elementor, inserisci manualmente {{ shortcode }} in un widget Shortcode o HTML.
+          </v-alert>
         </v-col>
       </v-row>
 
@@ -266,7 +274,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { PolicyKey } from '@/services/DocumentService'
+  import type { PolicyKey, UpdatePageResponse } from '@/services'
   import { computed, ref } from 'vue'
   import { useAppStore } from '@/stores/app'
 
@@ -276,6 +284,7 @@
   interface PolicyPageOption {
     title: string
     value: string | null
+    isElementor?: boolean
   }
 
   interface Props {
@@ -299,6 +308,8 @@
   const isPageSelectionValid = computed(() => !isPageRequired.value || hasPageSelected.value)
   const isSaveDisabled = computed(() => !isPageSelectionValid.value)
   const isUpdating = computed(() => store.getIsUpdatingPage)
+  const selectedPolicyPage = computed(() => props.policyPages.find(page => page.value === props.policyPage) ?? null)
+  const isElementorPage = computed(() => selectedPolicyPage.value?.isElementor === true)
 
   // Messaggio di errore per la selezione della pagina
   const pageSelectionError = computed(() => {
@@ -315,8 +326,7 @@
     'update:use-html-snippet': [value: boolean]
     'update:enable-policy-page': [value: boolean]
     'update:policy-page': [value: string | null]
-    'save': []
-    'page-updated': [result: any]
+    'page-updated': [result: UpdatePageResponse]
   }>()
 
   async function handleSave () {
@@ -329,7 +339,6 @@
       })
 
       emit('page-updated', result)
-      emit('save')
     } catch (error) {
       console.error('Errore durante l\'aggiornamento della pagina:', error)
     }

@@ -4,4 +4,4 @@ export { type ApiConfig, type ApiResponse, BaseApiService } from './BaseApiServi
 export { type BrandingData, BrandingService, brandingService } from './BrandingService'
 export { CacheService, cacheService, type CacheSettings } from './CacheService'
 export { type DocumentsData, DocumentService, documentService, type Language, type PolicyDocument, type PolicyKey } from './DocumentService'
-export { type PolicySettings, SettingsService, settingsService, type WordPressPage } from './SettingsService'
+export { type PolicySettings, SettingsService, settingsService, type UpdatePageResponse, type WordPressPage } from './SettingsService'

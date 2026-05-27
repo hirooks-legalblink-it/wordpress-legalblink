@@ -66,15 +66,23 @@ Official WordPress plugin for integrating LegalBlink services into your WordPres
 Embed legal documents anywhere on your site:
 
 ```
-[wplb_privacy_policy]
-[wplb_cookie_policy]
-[wplb_cgv_policy]
+[WPLB_PRIVACY_POLICY]
+[WPLB_COOKIE_POLICY]
+[WPLB_CGV_POLICY]
+```
+
+Legacy alias still supported for backwards compatibility:
+
+```
+[WPLB_TERMS_OF_SERVICE]
 ```
 
 With options:
 ```
-[wplb_privacy_policy language="en" html="true"]
+[WPLB_CGV_POLICY lang="en" html="true"]
 ```
+
+When a page is built with Elementor, use the shortcode manually inside an Elementor Shortcode or HTML widget. The automatic page sync only updates the standard WordPress page content.
 
 ### Cache Management
 

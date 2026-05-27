@@ -4,7 +4,7 @@ Tags: gdpr, privacy, cookie, policy, compliance
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,7 @@ The main features include:
 * Automatic synchronization with LegalBlink (no manual changes required)
 * Cookie banner management (enable/disable, copy HTML snippet, site-wide activation)
 * Legal documents with iframe integration, HTML snippet, or shortcode
-* Shortcodes with advanced options (e.g. ```language="en" html="true"```)
+* Shortcodes with advanced options (e.g. ```lang="en" html="true"```)
 * Association of pages with direct link copying
 * Cache management (duration and manual clearing)
 * Compatibility with WooCommerce, WordPress Multisite, WPML, and Polylang
@@ -57,6 +57,24 @@ After activation, you will find the menu item: “LegalBlink Policy”.
 1. Retrieve your token from [https://app.legalblink.it/login](https://app.legalblink.it/login)
 2. Go to “LegalBlink Policy” on WordPress
 3. Paste the token and click “Login”
+
+== Shortcodes ==
+
+Use these canonical shortcodes to embed LegalBlink documents inside any WordPress content area that supports shortcodes:
+
+* `[WPLB_PRIVACY_POLICY]`
+* `[WPLB_COOKIE_POLICY]`
+* `[WPLB_CGV_POLICY]`
+
+The legacy terms alias remains available for backwards compatibility:
+
+* `[WPLB_TERMS_OF_SERVICE]`
+
+Example with attributes:
+
+* `[WPLB_CGV_POLICY lang="en" html="true"]`
+
+If a page is built with Elementor, insert the shortcode manually in an Elementor Shortcode or HTML widget. The automatic page synchronization only updates the standard WordPress content of the page.
 
 == Frequently Asked Questions ==
 
@@ -110,6 +128,10 @@ Yes, it can be configured for every site.
 - Cache is now automatically invalidated after plugin updates
 = 2.0.4 =
 - Minor fixes
+= 2.0.6 =
+- Fixed: canonical CGV shortcode is now `WPLB_CGV_POLICY`, while `WPLB_TERMS_OF_SERVICE` remains available as a backwards-compatible alias
+- Fixed: admin UI, backend, and documentation now expose the same canonical shortcode for terms / CGV
+- Improved: WordPress page selection now warns when the selected page is managed by Elementor, since automatic sync only updates the standard page content
 = 2.0.5 =
 - Fixed: the plugin admin now works on sites using "Plain" permalinks (also for language switching and other parameterized actions)
 - Fixed: stray JavaScript snippets no longer appear as text when embedding a document in HTML mode

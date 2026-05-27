@@ -13,6 +13,7 @@ export interface WordPressPage {
   slug: string
   url: string
   modified: string
+  isElementor?: boolean
 }
 
 export interface GetWordPressPagesResponse {
@@ -42,14 +43,14 @@ export class SettingsService extends BaseApiService {
   /**
    * Get WordPress pages
    */
-  async getWordPressPages (): Promise<ApiResponse<GetWordPressPagesResponse>> {
+  async getWordPressPages(): Promise<ApiResponse<GetWordPressPagesResponse>> {
     return this.get<GetWordPressPagesResponse>('pages')
   }
 
   /**
    * Update page content with policy shortcode
    */
-  async updatePageContent (data: UpdatePageRequest): Promise<ApiResponse<UpdatePageResponse>> {
+  async updatePageContent(data: UpdatePageRequest): Promise<ApiResponse<UpdatePageResponse>> {
     return this.post<UpdatePageResponse>('documents/update-page', data)
   }
 }

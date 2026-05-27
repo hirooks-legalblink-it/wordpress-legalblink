@@ -225,8 +225,8 @@ if (!class_exists('WPLB_Main_API_Controller')) {
                         'title' => $page->post_title,
                         'slug' => $page->post_name,
                         'url' => get_permalink($page->ID),
-                        'content_length' => strlen($page->post_content),
-                        'last_modified' => $page->post_modified
+                        'modified' => $page->post_modified,
+                        'isElementor' => wplb_is_elementor_page($page->ID),
                     );
                 }
 
