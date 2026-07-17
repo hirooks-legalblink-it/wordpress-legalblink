@@ -2,9 +2,9 @@
 Contributors: legalblink
 Tags: gdpr, privacy, cookie, policy, compliance
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -111,6 +111,11 @@ Yes, it is fully compatible with e-commerce.
 Yes, it can be configured for every site.
 
 == Changelog ==
+
+= 2.0.7 =
+- Tested and confirmed compatible with WordPress 7.0 "Armstrong"
+- Verified PHP 8.3 compatibility
+- No functional changes — compatibility metadata update only
 
 = 1.0.1 =
 - Minor bug fixes
