@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: wp7_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: wp7_test_root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp7_user
+      MYSQL_PASSWORD: wp7_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    image: wordpress:7.0-php8.3-apache
+    container_name: wp7_wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8088:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp7_user
+      WORDPRESS_DB_PASSWORD: wp7_pass
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG', true);
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        @ini_set('display_errors', 0);
+    volumes:
+      - wp_data:/var/www/html
+      - ./plugin/legalblink-policy:/var/www/html/wp-content/plugins/legalblink-policy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  cli:
+    image: wordpress:cli
+    container_name: wp7_cli
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wp7_user
+      WORDPRESS_DB_PASSWORD: wp7_pass
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+      - ./plugin/legalblink-policy:/var/www/html/wp-content/plugins/legalblink-policy
+      - ./wp7-test-api.php:/tmp/test-api.php
+    command: ["sleep", "infinity"]
+
+volumes:
+  db_data:
+  wp_data:
