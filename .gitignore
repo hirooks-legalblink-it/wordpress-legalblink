@@ -6,3 +6,7 @@
 dist/
 .tmp
 /.tmp
+# WP 7.0 test tooling (local only)
+docker-compose.wp7.yml
+wp7-test-api.php
+patch-auth.php
